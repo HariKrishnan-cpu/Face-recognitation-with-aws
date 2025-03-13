@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request
 import boto3
 import os
+import logging
+
 
 app = Flask(__name__)
 
@@ -60,11 +62,10 @@ def upload_to_s3():
             face_result = '<br>'.join(result)
         else:
             face_result = "No face matches found."
+    except Exception as e:
+        face_result = "Face not Matched. Please try again."
 
         return render_template('index.html', face_results=face_result)
-
-    except Exception as e:
-        return f"An error occurred: {str(e)}"
 
 if __name__ == '__main__':
     app.run(debug=True)

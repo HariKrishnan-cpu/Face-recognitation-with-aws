@@ -90,16 +90,6 @@
         .ok-button:hover {
             background-color: #0056b3;
         }
-        body {
-            background-color: #f8f9fa;
-            font-family: Arial, sans-serif;
-            margin: 0; /* Remove default margins */
-            padding: 0; /* Remove default padding */
-            background-image: url('https://cdn.pixabay.com/photo/2017/04/05/04/44/background-2203989_1280.jpg'); /* Replace with your image path or URL */
-            background-size: cover; /* Ensures the image covers the entire screen */
-            background-repeat: no-repeat; /* Prevents the image from repeating */
-            background-position: center; /* Centers the image */
-        }
         .container {
             max-width: 600px;
             margin: 50px auto;
@@ -123,7 +113,7 @@
         button:hover {
             background-color: #0056b3;
         }
-        #resultsContainer {
+        .results-container {
             position: absolute;
             top: 50%; /* Center vertically */
             left: 50%; /* Center horizontally */
@@ -136,6 +126,9 @@
             text-align: center;
             max-width: 400px;
             display: none;
+        }
+        .results-container.visible {
+            display: block; /* Visible when the `visible` class is applied */
         }
         
     </style>
@@ -164,19 +157,19 @@
                 <label for="target_image" class="form-label">Aadhar Image:</label>
                 <input type="file" name="target_image" id="target_image" class="form-control" required>
             </div>
-            <button onclick="showContainer()" type="submit" class="btn btn-primary w-100">Upload Images</button>
+            <button  type="submit" class="btn btn-primary w-100" disabled>Upload Images</button>
         </form>
         <!-- Results Section -->
-        <div class="results-container" id="resultContainer">
+        <div class="results-container {{ 'visible' if face_results else '' }}" id="resultContainer">
             <div class="tick">&#10003;</div>
             <h2 class="thank-you">Thank You!</h2>
-            <p class="description">Your images have been processed, and here are the results:</p>
+            <p class="description">Your images have been uploaded, and here are the results:</p>
             <p>{{ face_results}}</p>
 
             <button onclick="reset()"  class="ok-button">OK</button>
         </div>
     </div>
-
+    
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -201,14 +194,7 @@
     // Disable the button by default
     uploadButton.disabled = true;
 });
-        function showContainer() {
-            // Make the hidden container visible
-            setTimeout(() => {
-                document.getElementById('resultContainer').style.display = 'block';
-    }, 5000);
-            
-        }
-        function reset(){
+function reset(){
         document.getElementById('resultContainer').style.display = 'none';
     }
     </script>
