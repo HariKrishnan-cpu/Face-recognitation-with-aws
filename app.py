@@ -56,15 +56,12 @@ def upload_to_s3():
             result = []
             for face_match in response['FaceMatches']:
                 similarity = face_match['Similarity']
-                result.append(f"Match Found with {similarity}% similarity!")
+                result.append(f"Match Found with {similarity:.2f}% similarity!")
             face_result = '<br>'.join(result)
         else:
             face_result = "No face matches found."
 
-        return (f"Files uploaded to S3 successfully!<br>"
-                f"Source Image: {source_new_name}<br>"
-                f"Target Image: {target_new_name}<br><br>"
-                f"Face Comparison Result:<br>{face_result}")
+        return render_template('index.html', face_results=face_result)
 
     except Exception as e:
         return f"An error occurred: {str(e)}"

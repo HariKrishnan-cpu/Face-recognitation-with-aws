@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Images to S3</title>
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="index.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         /* Custom styles */
@@ -41,6 +42,102 @@
         button:hover {
             background-color: #0056b3;
         }
+                /* Center the results container */
+                .results-container {
+            position: absolute;
+            top: 50%; /* Center vertically */
+            left: 50%; /* Center horizontally */
+            transform: translate(-50%, -50%); /* Adjust for true centering */
+            background: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px); /* Add blur effect */
+            padding: 30px;
+            text-align: center;
+            max-width: 400px;
+            display: none;
+        }
+
+        /* Optional: style the tick and headings */
+        .tick {
+            font-size: 48px;
+            color: green;
+            margin-bottom: 20px;
+        }
+
+        .thank-you {
+            font-size: 24px;
+            color: #333333;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-size: 16px;
+            color: #666666;
+            margin-bottom: 20px;
+        }
+
+        /* Button styling */
+        .ok-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .ok-button:hover {
+            background-color: #0056b3;
+        }
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            margin: 0; /* Remove default margins */
+            padding: 0; /* Remove default padding */
+            background-image: url('https://cdn.pixabay.com/photo/2017/04/05/04/44/background-2203989_1280.jpg'); /* Replace with your image path or URL */
+            background-size: cover; /* Ensures the image covers the entire screen */
+            background-repeat: no-repeat; /* Prevents the image from repeating */
+            background-position: center; /* Centers the image */
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333333;
+        }
+        label {
+            font-weight: bold;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #resultsContainer {
+            position: absolute;
+            top: 50%; /* Center vertically */
+            left: 50%; /* Center horizontally */
+            transform: translate(-50%, -50%); /* Adjust for true centering */
+            background: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px); /* Add blur effect */
+            padding: 30px;
+            text-align: center;
+            max-width: 400px;
+            display: none;
+        }
+        
     </style>
 </head>
 <body>
@@ -67,11 +164,30 @@
                 <label for="target_image" class="form-label">Aadhar Image:</label>
                 <input type="file" name="target_image" id="target_image" class="form-control" required>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Upload Images</button>
+            <button onclick="showContainer()" type="submit" class="btn btn-primary w-100">Upload Images</button>
         </form>
+        <!-- Results Section -->
+        <div class="results-container" id="resultContainer">
+            <div class="tick">&#10003;</div>
+            <h2 class="thank-you">Thank You!</h2>
+            <p class="description">Your images have been processed, and here are the results:</p>
+            <p>{{ face_results}}</p>
+
+            <button onclick="reset()"  class="ok-button">OK</button>
+        </div>
     </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function showContainer() {
+            // Make the hidden container visible
+            document.getElementById('resultContainer').style.display = 'block';
+        }
+        function reset(){
+        document.getElementById('resultContainer').style.display = 'none';
+    }
+    </script>
+    
 </body>
 </html>
